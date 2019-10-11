@@ -5,7 +5,7 @@ const app =express();
 const PORT = process.env.PORT||9000;
 
 
-
+app.use(express.static(path.join(__dirname)));
 app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 app.use(require(`./routes/api/logger`));
