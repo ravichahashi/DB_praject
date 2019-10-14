@@ -90,18 +90,7 @@ router.get('/data/products/:size&:vender/code=:code',(req,res)=>{
   })
   .catch(err => {console.log(err);});
 });
-router.get('/data/products/:size&:vender/name&:name',(req,res)=>{
-  //console.log(`${req.params.size}`);
-  console.log(`${req.params.size}|${req.params.vender}|${req.params.name}`);
-  let size= req.params.size=='-'?'%':req.params.size;
-  let vendor= req.params.vender=='-'?'%':req.params.vender;
-  let name= req.params.name=='-'?'%':req.params.name;
-  db.query(`SELECT * FROM products WHERE productScale LIKE "${size}" AND productVendor LIKE "${vendor}" AND productName LIKE '%${name}%' ORDER BY productName `, { type: db.QueryTypes.SELECT})
-  .then(result => {console.log(result);
-  res.send(result);
-  })
-  .catch(err => {console.log(err);});
-});
+
 
 router.get('/data/products/size',(req,res)=>{
   //console.log(`${req.params.size}`);
