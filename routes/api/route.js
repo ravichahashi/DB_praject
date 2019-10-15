@@ -4,7 +4,7 @@ const uuid =require('uuid');
 const fs= require('fs');
 const path = require('path');
 // let users =require('../../Users');
-const db=require('./sreach');
+const db=require('./data');
 
  db.authenticate()
   .then(() => {
@@ -15,13 +15,15 @@ const db=require('./sreach');
   });
   
 router.get('/orderlist',(req,res)=>{
-
-
     res.sendFile(path.join(__dirname,`..`,`..`,`Order_list.html`));
    // res.send(result);
   
 });
+router.get('/productslist',(req,res)=>{
+  res.sendFile(path.join(__dirname,`..`,`..`,`ProductLotList.html`));
+ // res.send(result);
 
+});
 
 router.get('/sreach/productlines',(req,res)=>{
   
@@ -32,22 +34,16 @@ router.get('/sreach/productlines',(req,res)=>{
   .catch(err => {console.log(err);});
 });
 //////////////////////products sreach api//////////////////////////
-router.get('/sreach/products/:size&:vender',(req,res)=>{
+router.get('/sreach/products',(req,res)=>{
   //console.log(`${req.params.size}`);
   /*
   ex. not select size and vendor
-  http://localhost:9000/sreach/products/-&-
-  ex. not select size only
-  http://localhost:9000/sreach/products/1:700&-
-   ex. not select size and vendor
-  http://localhost:9000/sreach/products/1:700&Min Lin Diecast
+  http://localhost:9000/sreach/products/
 
   */
-  console.log(`${req.params.size}|${req.params.vender}|${req.params.name}`);
-  let size= req.params.size=='none'?'%':req.params.size;
-  let vendor= req.params.vender=='none'?'%':req.params.vender;
+  //console.log(`${req.params.size}|${req.params.vender}|${req.params.name}`);
 
-  db.query(`SELECT * FROM products WHERE productScale LIKE "${size}" AND productVendor LIKE "${vendor}" ORDER BY productName,productScale,productVendor `, { type: db.QueryTypes.SELECT})
+  db.query(`SELECT * FROM products ORDER BY productName,productScale,productVendor `, { type: db.QueryTypes.SELECT})
   .then(result => {console.log(result);
   res.send(result);
   })
