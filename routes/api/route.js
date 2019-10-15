@@ -13,31 +13,25 @@ const db=require('./data');
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-<<<<<<< HEAD
-  
-router.get('/orderlist',(req,res)=>{
-=======
+
+
 
 //get address  
 router.get('/',(req,res)=>{
->>>>>>> 08b94154cf98c1cee165e472a4c526cefa099ac4
     res.sendFile(path.join(__dirname,`..`,`..`,`Order_list.html`));
    // res.send(result);
 });
+
 router.get('/productslist',(req,res)=>{
   res.sendFile(path.join(__dirname,`..`,`..`,`ProductLotList.html`));
  // res.send(result);
-
-<<<<<<< HEAD
 });
-=======
 router.get('/data/productlines/',(req,res)=>{
   
   db.query(`SELECT * FROM  productlines`, { type: db.QueryTypes.SELECT})
+});
 
->>>>>>> 08b94154cf98c1cee165e472a4c526cefa099ac4
-
-router.get('/sreach/productlines',(req,res)=>{
+router.get('/search/productlines',(req,res)=>{
   
   db.query(`SELECT * FROM  productlines`, { type: db.QueryTypes.SELECT})
   .then(result => {console.log(result);
@@ -45,12 +39,12 @@ router.get('/sreach/productlines',(req,res)=>{
   })
   .catch(err => {console.log(err);});
 });
-//////////////////////products sreach api//////////////////////////
-router.get('/sreach/products',(req,res)=>{
+//////////////////////products search api//////////////////////////
+router.get('/search/products',(req,res)=>{
   //console.log(`${req.params.size}`);
   /*
   ex. not select size and vendor
-  http://localhost:9000/sreach/products/
+  http://localhost:9000/search/products/
 
   */
   //console.log(`${req.params.size}|${req.params.vender}|${req.params.name}`);
@@ -62,11 +56,11 @@ router.get('/sreach/products',(req,res)=>{
   .catch(err => {console.log(err);});
 });
 
-router.get('/sreach/products/name=:name',(req,res)=>{
+router.get('/search/products/name=:name',(req,res)=>{
   //console.log(`${req.params.size}`);
   /*
   ex. 
-  http://localhost:9000/sreach/products/-&-/name=Alpine
+  http://localhost:9000/search/products/-&-/name=Alpine
   ex. not select size only
   */
 
@@ -80,10 +74,10 @@ router.get('/sreach/products/name=:name',(req,res)=>{
   .catch(err => {console.log(err);});
 });
 
-router.get('/sreach/products/code=:code',(req,res)=>{
+router.get('/search/products/code=:code',(req,res)=>{
   /*
   ex. 
-  http://localhost:9000/sreach/products/-&-/code=S12_1099
+  http://localhost:9000/search/products/-&-/code=S12_1099
   ex. not select size only
   */
   //console.log(`${req.params.size}`);
@@ -96,7 +90,7 @@ router.get('/sreach/products/code=:code',(req,res)=>{
   .catch(err => {console.log(err);});
 });
 
-router.get('/sreach/products/allSize',(req,res)=>{
+router.get('/search/products/allSize',(req,res)=>{
   //console.log(`${req.params.size}`);
   db.query(`SELECT productScale FROM products GROUP by productScale`, { type: db.QueryTypes.SELECT})
   .then(result => {console.log(result);
@@ -105,7 +99,7 @@ router.get('/sreach/products/allSize',(req,res)=>{
   .catch(err => {console.log(err);});
 
 });
-router.get('/sreach/products/allVendor',(req,res)=>{
+router.get('/search/products/allVendor',(req,res)=>{
   //console.log(`${req.params.size}`);
   db.query(`SELECT productVendor FROM products GROUP by productVendor`, { type: db.QueryTypes.SELECT})
   .then(result => {console.log(result);
@@ -118,7 +112,7 @@ router.get('/sreach/products/allVendor',(req,res)=>{
 router.get('/data/products/:code',(req,res)=>{
   /*
   ex. 
-  http://localhost:9000/sreach/products/-&-/code=S12_1099
+  http://localhost:9000/search/products/-&-/code=S12_1099
   ex. not select size only
   */
   //console.log(`${req.params.size}`);
@@ -136,7 +130,7 @@ router.get('/data/products/:code',(req,res)=>{
 
 
 ///////////////////////////custommer////////////////////////////////////////////
-router.get('/sreach/customers',(req,res)=>{
+router.get('/search/customers',(req,res)=>{
   
   db.query(`SELECT *
   FROM customers
@@ -147,7 +141,7 @@ router.get('/sreach/customers',(req,res)=>{
   .catch(err => {console.log(err);});
 });
 
-router.get('/sreach/customers/name=:name',(req,res)=>{
+router.get('/search/customers/name=:name',(req,res)=>{
   
   db.query(`SELECT *
   FROM customers
@@ -159,7 +153,7 @@ router.get('/sreach/customers/name=:name',(req,res)=>{
   .catch(err => {console.log(err);});
 });
 
-router.get('/sreach/customers/number=:number',(req,res)=>{
+router.get('/search/customers/number=:number',(req,res)=>{
   
   db.query(`SELECT *
   FROM customers
@@ -184,7 +178,7 @@ router.get('/data/customers/number=:number',(req,res)=>{
   .catch(err => {console.log(err);});
 });
 ///////////////////employees//////////////////////////
-router.get('/sreach/employees/allTitle',(req,res)=>{
+router.get('/search/employees/allTitle',(req,res)=>{
   
   db.query(`SELECT jobTitle
   FROM employees
@@ -195,7 +189,7 @@ router.get('/sreach/employees/allTitle',(req,res)=>{
   .catch(err => {console.log(err);});
 });
 
-router.get('/sreach/employees/name=:name',(req,res)=>{
+router.get('/search/employees/name=:name',(req,res)=>{
  
   let name= req.params.name=='0'?'%':req.params.name;
   db.query(`SELECT *
@@ -209,7 +203,7 @@ router.get('/sreach/employees/name=:name',(req,res)=>{
 });
 
 
-router.get('/sreach/employees/number=:number',(req,res)=>{
+router.get('/search/employees/number=:number',(req,res)=>{
 
   let number= req.params.number=='0'?'%':req.params.number;
   db.query(`SELECT *
@@ -236,7 +230,7 @@ router.get('/data/employees/:number',(req,res)=>{
   .catch(err => {console.log(err);});
 });
 //////////////order/////////////////////////////////////
-router.get('/sreach/orders',(req,res)=>{
+router.get('/search/orders',(req,res)=>{
   
   db.query(`SELECT *
   FROM orders`, { type: db.QueryTypes.SELECT})
