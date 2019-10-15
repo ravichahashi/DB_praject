@@ -23,11 +23,33 @@ $(document).ready(function() {
         {   
            if( (sizes.length>0?findSizes(data[i]):true) && (vendors.length>0?findVendors(data[i]):true))
            {
-            
+             //ex. http://localhost:9000/productslist?page=1
+           // var page =urlParams.get('page');
               list.innerHTML+=`${data[i].productName}|${data[i].productScale} <br>`;
            }
         }
       }
+    });
+
+    $("#submit").click(function(){
+      // $.ajax({
+      //   // all URLs are relative to http://localhost:3000/
+      //   url: requestURL,
+      //   type: 'GET',
+      //   dataType : 'json', // this URL returns data in JSON format
+      //   success: (data) => {
+      //    console.log(vendors.length);
+      //    // console.log('You received some data!', data);
+      //     for(var i=0;i<data.length;i++)
+      //     {   
+      //        if( (sizes.length>0?findSizes(data[i]):true) && (vendors.length>0?findVendors(data[i]):true))
+      //        {
+              
+      //           list.innerHTML+=`${data[i].productName}|${data[i].productScale} <br>`;
+      //        }
+      //     }
+      //   }
+      // });
     });
 
     
