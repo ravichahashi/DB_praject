@@ -15,7 +15,13 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "sequelize": "^5.19.5",
-    "sqlite3": "^4.1.0"
+    "mariadb": "^2.1.1",
+    "mysql2": "^1.7.0",
+    "mysql3": "^0.3.3",
+    "pg": "^7.12.1",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^5.19.6",
+    "sqlite3": "^4.1.0",
+    "tedious": "^6.4.0"
   }
 }
