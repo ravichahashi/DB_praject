@@ -13,24 +13,22 @@ const db=require('./data');
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-  
-router.get('/orderlist',(req,res)=>{
 
-
+//get address  
+router.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,`..`,`..`,`Order_list.html`));
    // res.send(result);
-  
 });
 
-
-router.get('/data/productlines/:name',(req,res)=>{
+router.get('/data/productlines/',(req,res)=>{
   
-  db.query(`SELECT ${req,this.param,name} FROM  productlines`, { type: db.QueryTypes.SELECT})
+  db.query(`SELECT * FROM  productlines`, { type: db.QueryTypes.SELECT})
   .then(result => {console.log(result);
   res.send(result);
   })
   .catch(err => {console.log(err);});
 });
+
 router.get('/i',(req,res)=>{
 
   db.query(`INSERT INTO productlines SELECT * FROM productlines`, { type: db.QueryTypes.INSERT})
@@ -38,7 +36,22 @@ router.get('/i',(req,res)=>{
     res.sendFile(path.join(__dirname,`..`,`..`,`LOGIN.html`));})
   .catch(err => {console.log(err);});
 });
-    
+
+router.get('/productdetails',(req,res)=>{
+  res.sendFile(path.join(__dirname,`..`,`..`,`productdetails.html`));
+ // res.send(result);
+});
+
+router.get('/data/productdetails/',(req,res)=>{
+  
+  db.query(`SELECT * FROM  products`, { type: db.QueryTypes.SELECT})
+  .then(result => {console.log(result);
+  res.send(result);
+  })
+  .catch(err => {console.log(err);});
+});
+
+//END get address    
 
 
 module.exports = router;
