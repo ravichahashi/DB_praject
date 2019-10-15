@@ -13,14 +13,16 @@ const db=require('./sreach');
   .catch(err => {
     console.error('Unable to connect to the database:', err);
   });
-  
-router.get('/orderlist',(req,res)=>{
 
-
+//get address  
+router.get('/',(req,res)=>{
     res.sendFile(path.join(__dirname,`..`,`..`,`Order_list.html`));
    // res.send(result);
-  
 });
+
+router.get('/data/productlines/',(req,res)=>{
+  
+  db.query(`SELECT * FROM  productlines`, { type: db.QueryTypes.SELECT})
 
 
 router.get('/sreach/productlines',(req,res)=>{
@@ -208,11 +210,13 @@ router.get('/sreach/employees/number=:number',(req,res)=>{
   FROM employees
   WHERE employees.employeeNumber LIKE '%${number}% '
   ORDER BY  employees.employeeNumber,employees.firstName,employees.lastName`, { type: db.QueryTypes.SELECT})
+
   .then(result => {console.log(result);
   res.send(result);
   })
   .catch(err => {console.log(err);});
 });
+
 
 router.get('/data/employees/:number',(req,res)=>{
 
@@ -245,7 +249,22 @@ router.get('/i',(req,res)=>{
   })
   .catch(err => {console.log(err);});
 });
-    
+
+router.get('/productdetails',(req,res)=>{
+  res.sendFile(path.join(__dirname,`..`,`..`,`productdetails.html`));
+ // res.send(result);
+});
+
+router.get('/data/productdetails/',(req,res)=>{
+  
+  db.query(`SELECT * FROM  products`, { type: db.QueryTypes.SELECT})
+  .then(result => {console.log(result);
+  res.send(result);
+  })
+  .catch(err => {console.log(err);});
+});
+
+//END get address    
 
 
 module.exports = router;
