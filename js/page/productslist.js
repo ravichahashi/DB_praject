@@ -25,6 +25,7 @@ $(document).ready(function() {
            {
              //ex. http://localhost:9000/productslist?page=1
            // var page =urlParams.get('page');
+           location.replace(location.origin + `/newkidadded.html`)
               list.innerHTML+=`${data[i].productName}|${data[i].productScale} <br>`;
            }
         }
@@ -80,3 +81,4 @@ function findVendors(data){
   });
   return find;
 }
+
