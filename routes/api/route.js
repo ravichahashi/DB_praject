@@ -39,6 +39,17 @@ router.get('/search/productlines',(req,res)=>{
   })
   .catch(err => {console.log(err);});
 });
+
+router.get('/login/:email',(req,res)=>{
+  
+  db.query(`SELECT * 
+  FROM employees
+  WHERE email = '${req.params.email}'`, { type: db.QueryTypes.SELECT})
+  .then(result => {console.log(result);
+  res.send(result);
+  })
+  .catch(err => {console.log(err);});
+});
 //////////////////////products search api//////////////////////////
 router.get('/search/products',(req,res)=>{
   //console.log(`${req.params.size}`);
