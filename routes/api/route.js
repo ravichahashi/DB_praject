@@ -167,7 +167,7 @@ router.get('/data/products/:code',(req,res)=>{
   let code= req.params.code;
   products.findAll({
     where: {
-      productCode:`${code}`,
+      productCode:`${code}`
     }
 }).then(result => {console.log(result);
   res.send(result);
@@ -178,10 +178,12 @@ router.get('/data/products/:code',(req,res)=>{
 
 ///////////////////////////custommer////////////////////////////////////////////
 router.get('/search/customers',(req,res)=>{
-  
-  db.query(`SELECT *
+  customers.findAll({
+    order:[`customerName`]
+  })
+ /* db.query(`SELECT *
   FROM customers
-  ORDER by customerName `, { type: db.QueryTypes.SELECT})
+  ORDER by customerName `, { type: db.QueryTypes.SELECT})*/
 
   .then(result => {console.log(result);
   res.send(result);
@@ -189,29 +191,26 @@ router.get('/search/customers',(req,res)=>{
   .catch(err => {console.log(err);});
  
 });
-router.get('/productlot',(req,res)=>{
 
 
-  res.sendFile(path.join(__dirname,`..`,`..`,`ProductLotList.html`));
- // res.send(result);
-
-});
-router.get('/data/productlotlistscale',(req,res)=>{
-  
-  db.query("SELECT distinct productScale FROM products", { type: db.QueryTypes.SELECT})
-  .then(result => {console.log(result);
-    res.send(result);
-    })
-    .catch(err => {console.log(err);});
-  });
 
 router.get('/sreach/customers/name=:name',(req,res)=>{
 
-  
-  db.query(`SELECT *
+  customers.findAll({
+   
+    where:
+    {
+      customerName:{
+        [Op.like]: `${req.params.name}%`
+      }
+  }
+  ,
+      order:[`customerName`]
+  })
+ /* db.query(`SELECT *
   FROM customers
   WHERE customerName LIKE '${req.params.name}%';
-  ORDER by customerName  `, { type: db.QueryTypes.SELECT})
+  ORDER by customerName  `, { type: db.QueryTypes.SELECT})*/
   .then(result => {console.log(result);
   res.send(result);
   })
@@ -219,11 +218,21 @@ router.get('/sreach/customers/name=:name',(req,res)=>{
 });
 
 router.get('/search/customers/number=:number',(req,res)=>{
-  
-  db.query(`SELECT *
+  customers.findAll({
+   
+    where:
+    {
+      customerNumber:{
+        [Op.like]: `${req.params.number}%`
+      }
+  }
+  ,
+      order:[`customerName`]
+  })
+  /*db.query(`SELECT *
   FROM customers
   WHERE customerNumber LIKE '${req.params.number}%';
-  ORDER by customerNumber,customerName  `, { type: db.QueryTypes.SELECT})
+  ORDER by customerNumber,customerName  `, { type: db.QueryTypes.SELECT})*/
   .then(result => {console.log(result);
   res.send(result);
   })
@@ -232,11 +241,19 @@ router.get('/search/customers/number=:number',(req,res)=>{
 
 
 router.get('/data/customers/number=:number',(req,res)=>{
-  
-  db.query(`SELECT *
+  customers.findAll({
+   
+    where:
+    {
+      customerNumber: `${req.params.number}` 
+    }
+  ,
+      order:[`customerNumber`,`customerName`]
+  })
+  /*db.query(`SELECT *
   FROM customers
   WHERE customerNumber = '${req.params.number}';
-  ORDER by customerNumber,customerName`, { type: db.QueryTypes.SELECT})
+  ORDER by customerNumber,customerName`, { type: db.QueryTypes.SELECT})*/
   .then(result => {console.log(result);
   res.send(result[0]);
   })
@@ -244,38 +261,57 @@ router.get('/data/customers/number=:number',(req,res)=>{
 });
 ///////////////////employees//////////////////////////
 router.get('/search/employees/allTitle',(req,res)=>{
-  
-  db.query(`SELECT jobTitle
+  employees.findAll({
+    attributes: [Sequelize.literal('DISTINCT `jobTitle`'), 'jobTitle']
+  })
+ /* db.query(`SELECT jobTitle
   FROM employees
-  GROUP BY jobTitle`, { type: db.QueryTypes.SELECT})
+  GROUP BY jobTitle`, { type: db.QueryTypes.SELECT})*/
   .then(result => {console.log(result);
   res.send(result);
   })
   .catch(err => {console.log(err);});
 });
 
-router.get('/search/employees/name=:name',(req,res)=>{
+// router.get('/search/employees/name=:name',(req,res)=>{
  
-  let name= req.params.name=='0'?'%':req.params.name;
-  db.query(`SELECT *
-  FROM employees
-  WHERE employees.firstName||" "||employees.lastName LIKE '%${name}% '
-  ORDER BY employees.firstName,employees.lastName`, { type: db.QueryTypes.SELECT})
-  .then(result => {console.log(result);
-  res.send(result);
-  })
-  .catch(err => {console.log(err);});
-});
+//   let name= req.params.name=='0'?'%':req.params.name;
+//   employees.findAll({
+   
+//     where:
+//     {
+//       customerNumber:{
+//         [Op.like]: `${req.params.number}%`
+//       }
+//   }
+//   ,
+//       order:[`customerName`]
+//   })
+//   db.query(`SELECT *
+//   FROM employees
+//   WHERE employees.firstName||" "||employees.lastName LIKE '%${name}% '
+//   ORDER BY employees.firstName,employees.lastName`, { type: db.QueryTypes.SELECT})
+//   .then(result => {console.log(result);
+//   res.send(result);
+//   })
+//   .catch(err => {console.log(err);});
+// });
 
 
 router.get('/search/employees/number=:number',(req,res)=>{
 
   let number= req.params.number=='0'?'%':req.params.number;
-  db.query(`SELECT *
-  FROM employees
-  WHERE employees.employeeNumber LIKE '%${number}% '
-  ORDER BY  employees.employeeNumber,employees.firstName,employees.lastName`, { type: db.QueryTypes.SELECT})
-
+  employees.findAll({
+   
+        where:
+        {
+          employeeNumber:{
+            [Op.like]: `%${number}%`
+          }
+      }
+      ,
+          order:[`employeeNumber`,`firstName`,`lastName`]
+      })
   .then(result => {console.log(result);
   res.send(result);
   })
@@ -284,10 +320,13 @@ router.get('/search/employees/number=:number',(req,res)=>{
 
 
 router.get('/data/employees/:number',(req,res)=>{
-
-  db.query(`SELECT *
-  FROM employees
-  WHERE employeeNumber = '${req.params.number}`, { type: db.QueryTypes.SELECT})
+  employees.findAll({
+   
+    where:
+    {
+      employeeNumber: `${req.params.number}`
+    }
+  })
   .then(result => {console.log(result);
   res.send(result[0]);
   
@@ -296,9 +335,7 @@ router.get('/data/employees/:number',(req,res)=>{
 });
 //////////////order/////////////////////////////////////
 router.get('/search/orders',(req,res)=>{
-  
-  db.query(`SELECT *
-  FROM orders`, { type: db.QueryTypes.SELECT})
+  orders.findAll()
   .then(result => {console.log(result);
   res.send(result);
   })
@@ -306,16 +343,6 @@ router.get('/search/orders',(req,res)=>{
 });
 //////////////////////////////////////////////////////////////////////////////////////////
 
-
-router.get('/data/productlotlistvendor',(req,res)=>{
-  
-  db.query("SELECT distinct productVendor FROM products", { type: db.QueryTypes.SELECT})
-  .then(result => {console.log(result);
-  res.send(result);
-  })
-  .catch(err => {console.log(err);});
- 
-});
 router.get('/i',(req,res)=>{
 
   db.query(`INSERT INTO productlines SELECT * FROM productlines`, { type: db.QueryTypes.INSERT})
