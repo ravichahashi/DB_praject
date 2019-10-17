@@ -5,6 +5,7 @@ const fs= require('fs');
 const path = require('path');
 // let users =require('../../Users');
 const db=require('./data');
+const products = require('./tables/products');
 
  db.authenticate()
   .then(() => {
@@ -33,7 +34,7 @@ router.get('/data/productlines/',(req,res)=>{
 
 router.get('/search/productlines',(req,res)=>{
   
-  db.query(`SELECT * FROM  productlines`, { type: db.QueryTypes.SELECT})
+  products.findAll()
   .then(result => {console.log(result);
   res.send(result);
   })
