@@ -6,7 +6,15 @@ const path = require('path');
 // let users =require('../../Users');
 const db=require('./data');
 const products = require('./tables/products');
-
+const productlines = require('./tables/productlines');
+const payments = require('./tables/payments');
+const orders = require('./tables/orders');
+const orderdetails = require('./tables/orderdetails');
+const offices = require('./tables/offices');
+const employees = require('./tables/employees');
+const customers = require('./tables/customers');
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
  db.authenticate()
   .then(() => {
     console.log('Connection has been established successfully.');
@@ -30,29 +38,27 @@ router.get('/productslist',(req,res)=>{
   res.sendFile(path.join(__dirname,`..`,`..`,`ProductLotList.html`));
  // res.send(result);
 });
-router.get('/data/productlines/',(req,res)=>{
-
-  db.query(`SELECT * FROM  productlines`, { type: db.QueryTypes.SELECT})
-});
 
 router.get('/search/productlines',(req,res)=>{
   
-  products.findAll()
+  productlines.findAll()
   .then(result => {console.log(result);
   res.send(result);
   })
   .catch(err => {console.log(err);});
+
 });
 
 router.get('/login/:email',(req,res)=>{
-  
-  db.query(`SELECT * 
-  FROM employees
-  WHERE email = '${req.params.email}'`, { type: db.QueryTypes.SELECT})
-  .then(result => {console.log(result);
+  employees.findAll({
+    where: {
+      email:'${req.params.email}',
+    }
+}).then(result => {
+  console.log(result);
   res.send(result);
-  })
-  .catch(err => {console.log(err);});
+  }).catch(err => {console.log(err);});
+
 });
 //////////////////////products search api//////////////////////////
 router.get('/search/products',(req,res)=>{
@@ -63,8 +69,10 @@ router.get('/search/products',(req,res)=>{
 
   */
   //console.log(`${req.params.size}|${req.params.vender}|${req.params.name}`);
-
-  db.query(`SELECT * FROM products ORDER BY productName,productScale,productVendor `, { type: db.QueryTypes.SELECT})
+ // db.query(`SELECT * FROM products ORDER BY productName,productScale,productVendor `, { type: db.QueryTypes.SELECT})
+  products.findAll({
+    order:[`productName`,`productScale`,`productVendor`]
+  })
   .then(result => {console.log(result);
   res.send(result);
   })
@@ -80,9 +88,18 @@ router.get('/search/products/name=:name',(req,res)=>{
   */
 
   console.log(`${req.params.name}`);
- 
+ //db.query(`SELECT * FROM products WHERE productName LIKE '%${name}%' ORDER BY productName,productScale,productVendor`, { type: db.QueryTypes.SELECT})
   let name= req.params.name=='0'?'%':req.params.name;
-  db.query(`SELECT * FROM products WHERE productName LIKE '%${name}%' ORDER BY productName,productScale,productVendor`, { type: db.QueryTypes.SELECT})
+  products.findAll({
+   
+    where:
+    {
+      productName:{
+        [Op.like]: `%${name}%`
+      }
+  },
+    order:[`productName`,`productScale`,`productVendor`]
+  })
   .then(result => {console.log(result);
   res.send(result);
   })
@@ -98,7 +115,16 @@ router.get('/search/products/code=:code',(req,res)=>{
   //console.log(`${req.params.size}`);
 
   let code= req.params.code=='0'?'%':req.params.code;
-  db.query(`SELECT * FROM products WHERE productCode LIKE '%${code}%' ORDER BY productCode,productName,productScale,productVendor`, { type: db.QueryTypes.SELECT})
+  products.findAll({
+    where:
+    {
+      productName:{
+        [Op.like]: `%${code}%`
+      }
+  },
+    order:[`productCode`,`productName`,`productScale`,`productVendor`]
+  })
+ // db.query(`SELECT * FROM products WHERE productCode LIKE '%${code}%' ORDER BY productCode,productName,productScale,productVendor`, { type: db.QueryTypes.SELECT})
   .then(result => {console.log(result);
   res.send(result);
   })
@@ -107,16 +133,23 @@ router.get('/search/products/code=:code',(req,res)=>{
 
 router.get('/search/products/allSize',(req,res)=>{
   //console.log(`${req.params.size}`);
-  db.query(`SELECT productScale FROM products GROUP by productScale`, { type: db.QueryTypes.SELECT})
-  .then(result => {console.log(result);
+  products.findAll({
+    attributes: [Sequelize.literal('DISTINCT `productScale`'), 'productScale']
+  })
+ // db.query(`SELECT productScale FROM products GROUP by productScale`, { type: db.QueryTypes.SELECT})
+  .then(result => {
+    console.log(result);
   res.send(result);
   })
   .catch(err => {console.log(err);});
 
 });
 router.get('/search/products/allVendor',(req,res)=>{
-  //console.log(`${req.params.size}`);
-  db.query(`SELECT productVendor FROM products GROUP by productVendor`, { type: db.QueryTypes.SELECT})
+  //console.log(`${req.params.size}`);\
+  products.findAll({
+    attributes: [Sequelize.literal('DISTINCT `productVendor`'), 'productVendor']
+  })
+ // db.query(`SELECT productVendor FROM products GROUP by productVendor`, { type: db.QueryTypes.SELECT})
   .then(result => {console.log(result);
   res.send(result);
   })
@@ -131,13 +164,12 @@ router.get('/data/products/:code',(req,res)=>{
   ex. not select size only
   */
   //console.log(`${req.params.size}`);
-  console.log(`${req.params.size}|${req.params.vender}|${req.params.name}`);
-
   let code= req.params.code;
-  db.query(`SELECT * 
-  FROM products 
-  WHERE productCode = '${code}'`, { type: db.QueryTypes.SELECT})
-  .then(result => {console.log(result);
+  products.findAll({
+    where: {
+      productCode:`${code}`,
+    }
+}).then(result => {console.log(result);
   res.send(result);
   })
   .catch(err => {console.log(err);});
@@ -167,6 +199,11 @@ router.get('/productlot',(req,res)=>{
 router.get('/data/productlotlistscale',(req,res)=>{
   
   db.query("SELECT distinct productScale FROM products", { type: db.QueryTypes.SELECT})
+  .then(result => {console.log(result);
+    res.send(result);
+    })
+    .catch(err => {console.log(err);});
+  });
 
 router.get('/sreach/customers/name=:name',(req,res)=>{
 
@@ -269,15 +306,7 @@ router.get('/search/orders',(req,res)=>{
 });
 //////////////////////////////////////////////////////////////////////////////////////////
 
-router.get('/i',(req,res)=>{
 
-  db.query(`SELECT ${req,this.param,name} FROM  productlines`, { type: db.QueryTypes.SELECT})
-  .then(result => {console.log(result);
-  res.send(result);
-  })
-  .catch(err => {console.log(err);});
- 
-});
 router.get('/data/productlotlistvendor',(req,res)=>{
   
   db.query("SELECT distinct productVendor FROM products", { type: db.QueryTypes.SELECT})

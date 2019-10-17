@@ -1,27 +1,23 @@
-
 const Sequelize = require('sequelize');
 const data=require('../data');
 
-const db= data.define('orderdetails',{
-    orderNumber:{
+const db= data.define('productlines',{
+    productLine:{
         type:   Sequelize.TEXT,
         primaryKey: true
     },
-    productCode:{
+    textDescription:{
         type:   Sequelize.TEXT
     },
-    quantityOrdered:{
+    htmlDescription:{
         type:   Sequelize.TEXT
     },
-    priceEach:{
-        type:   Sequelize.TEXT
-    },
-    orderLineNumbe:{
+    image:{
         type:   Sequelize.TEXT
     }
    
 }, {
     timestamps: false
 });
-db.removeAttribute('id');
+
 module.exports = db;

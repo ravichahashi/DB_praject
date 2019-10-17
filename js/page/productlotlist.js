@@ -2,9 +2,9 @@ let list =document.querySelector('.widget-content')
 $(document).ready(function() {
    
 
-    console.log(list);
-    const requestURL1 = '/data/productlotlistscale';
-    const requestURL2 = '/data/productlotlistvendor';
+    console.log(list1);
+    const requestURL1 = '/search/products/allSize';
+    const requestURL2 = '/search/products/allVendor';
     console.log('making ajax request to:', requestURL1);
     // From: http://learn.jquery.com/ajax/jquery-ajax-methods/
     // Using the core $.ajax() method since it's the most flexible.
@@ -27,7 +27,7 @@ $(document).ready(function() {
                 
                 }
                 
-                console.log(list);
+                console.log(list1);
       }
     });
     $.ajax({
@@ -48,7 +48,7 @@ $(document).ready(function() {
                 
                 }
                 
-                console.log(list);
+                console.log(list1);
       }
     })
 });

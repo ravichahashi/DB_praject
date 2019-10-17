@@ -1,11 +1,11 @@
 var urlParams = new URLSearchParams(location.search);
-let list =document.querySelector('.list-pro-color')
+let list1 =document.querySelector('.list-pro-color')
 let vendors=[];
 let sizes=['1:10','1:12'];
 $(document).ready(function() {
 
     //let list=$("");
-    console.log(list);
+    console.log(list1);
     const requestURL = '/search/products';
     console.log('making ajax request to:', requestURL);
     // From: http://learn.jquery.com/ajax/jquery-ajax-methods/
@@ -25,8 +25,7 @@ $(document).ready(function() {
            {
              //ex. http://localhost:9000/productslist?page=1
            // var page =urlParams.get('page');
-           location.replace(location.origin + `/newkidadded.html`)
-              list.innerHTML+=`${data[i].productName}|${data[i].productScale} <br>`;
+              list1.innerHTML+=`${data[i].productName}|${data[i].productScale} <br>`;
            }
         }
       }
