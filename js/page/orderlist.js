@@ -1,8 +1,6 @@
 let list =document.querySelector('.list-pro-color')
 $(document).ready(function() {
-
-    console.log(list);
-    const requestURL = '/data/productlines';
+    const requestURL = '/sreach/productlines';
     console.log('making ajax request to:', requestURL);
     // From: http://learn.jquery.com/ajax/jquery-ajax-methods/
     // Using the core $.ajax() method since it's the most flexible.
