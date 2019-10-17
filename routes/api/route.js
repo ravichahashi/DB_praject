@@ -15,20 +15,23 @@ const products = require('./tables/products');
     console.error('Unable to connect to the database:', err);
   });
 
-
-
 //get address  
+
 router.get('/',(req,res)=>{
-    res.sendFile(path.join(__dirname,`..`,`..`,`Order_list.html`));
+
+
+    res.sendFile(path.join(__dirname,`..`,`..`,`EmployeeList.html`));
    // res.send(result);
+  
 });
+
 
 router.get('/productslist',(req,res)=>{
   res.sendFile(path.join(__dirname,`..`,`..`,`ProductLotList.html`));
  // res.send(result);
 });
 router.get('/data/productlines/',(req,res)=>{
-  
+
   db.query(`SELECT * FROM  productlines`, { type: db.QueryTypes.SELECT})
 });
 
@@ -147,13 +150,26 @@ router.get('/search/customers',(req,res)=>{
   db.query(`SELECT *
   FROM customers
   ORDER by customerName `, { type: db.QueryTypes.SELECT})
+
   .then(result => {console.log(result);
   res.send(result);
   })
   .catch(err => {console.log(err);});
+ 
 });
+router.get('/productlot',(req,res)=>{
 
-router.get('/search/customers/name=:name',(req,res)=>{
+
+  res.sendFile(path.join(__dirname,`..`,`..`,`ProductLotList.html`));
+ // res.send(result);
+
+});
+router.get('/data/productlotlistscale',(req,res)=>{
+  
+  db.query("SELECT distinct productScale FROM products", { type: db.QueryTypes.SELECT})
+
+router.get('/sreach/customers/name=:name',(req,res)=>{
+
   
   db.query(`SELECT *
   FROM customers
@@ -260,23 +276,25 @@ router.get('/i',(req,res)=>{
   res.send(result);
   })
   .catch(err => {console.log(err);});
+ 
 });
-
-router.get('/productdetails',(req,res)=>{
-  res.sendFile(path.join(__dirname,`..`,`..`,`productdetails.html`));
- // res.send(result);
-});
-
-router.get('/data/productdetails/',(req,res)=>{
+router.get('/data/productlotlistvendor',(req,res)=>{
   
-  db.query(`SELECT * FROM  products`, { type: db.QueryTypes.SELECT})
+  db.query("SELECT distinct productVendor FROM products", { type: db.QueryTypes.SELECT})
   .then(result => {console.log(result);
   res.send(result);
   })
   .catch(err => {console.log(err);});
+ 
 });
+router.get('/i',(req,res)=>{
 
-//END get address    
+  db.query(`INSERT INTO productlines SELECT * FROM productlines`, { type: db.QueryTypes.INSERT})
+  .then(result => {console.log(result);
+    res.sendFile(path.join(__dirname,`..`,`..`,`LOGIN.html`));})
+  .catch(err => {console.log(err);});
+});
+    
 
 
 module.exports = router;
