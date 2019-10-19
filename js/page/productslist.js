@@ -4,6 +4,8 @@ let vendors = [];
 let sizes = ['1:10', '1:12', '1:18', '1:24', '1:32', '1:50', '1:72', '1:700'];
 var numberRow = 10;
 var numberPage = 10;
+if(urlParams.get('page')==null) location.href = `/Productslist?page=1`;
+
 $(document).ready(function () {
 
   //let list=$("");
