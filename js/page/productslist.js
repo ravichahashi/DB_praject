@@ -33,68 +33,63 @@ $(document).ready(function () {
             // Product list
             list1.innerHTML += `
                   <div class="item-product-list">
-										<div class="row">
-											<div class="col-md-3 col-sm-4 col-xs-12">
-												<div class="item-pro-color">
-													<div class="product-thumb">
-														<a href="http://demo.7uptheme.com/html/kuteshop/detail.html"
-															class="product-thumb-link">
-															<img data-color="black" class="active"
-																src="./image/2(1).jpg"
-																alt="">
-															<img data-color="purple"
-																src="./image/3(1).jpg"
-																alt="">
-															<img data-color="blue"
-																src="./image/4(1).jpg"
-																alt="">
-															<img data-color="cyan"
-																src="./image/5.jpg"
-																alt="">
-														</a>
-														<a href="http://demo.7uptheme.com/html/kuteshop/quick-view.html"
-															class="quickview-link plus fancybox.iframe"><span>quick
-																view</span></a>
-													</div>
-													<div class="list-color">
-														<a href="http://demo.7uptheme.com/html/kuteshop/list-boxed-banner.html?fbclid=IwAR3bGgzDp0aoxFFwGK01YrX-6IVDNNt_V0Ion1EgNuFPIHEl1LARLv8wsvI#"
-															data-color="black" style="background:#404040"></a>
-														<a href="http://demo.7uptheme.com/html/kuteshop/list-boxed-banner.html?fbclid=IwAR3bGgzDp0aoxFFwGK01YrX-6IVDNNt_V0Ion1EgNuFPIHEl1LARLv8wsvI#"
-															data-color="purple" style="background:#ff8ff8"></a>
-														<a href="http://demo.7uptheme.com/html/kuteshop/list-boxed-banner.html?fbclid=IwAR3bGgzDp0aoxFFwGK01YrX-6IVDNNt_V0Ion1EgNuFPIHEl1LARLv8wsvI#"
-															data-color="blue" style="background:#868fff"></a>
-														<a href="http://demo.7uptheme.com/html/kuteshop/list-boxed-banner.html?fbclid=IwAR3bGgzDp0aoxFFwGK01YrX-6IVDNNt_V0Ion1EgNuFPIHEl1LARLv8wsvI#"
-															data-color="cyan" style="background:#80e6ff"></a>
-													</div>
-												</div>
-											</div>
-											<div class="col-md-9 col-sm-8 col-xs-12">
-												<div class="product-info">
-													<h5 class="product-title"><a
-														href="http://demo.7uptheme.com/html/kuteshop/detail.html">${data[i].productName}<br><h6>Product Code : 12345</h6></a></h5>
-													<div class="product-price">
-														<!--<ins><span>$360.00</span></ins>-->
-													</div>
-													<div class="col-md-3 col-sm-3 col-xs-12">
-														<h6>SIZE : Lorem</h6>
-														<h6>VENDER : ${data[i].productVendor}</h6>
-													</div>
-													<div class="col-md-3 col-sm-3 col-xs-12">
-														<h6>Lot : 123</h6>
-														<h6>12/12/2019</h6>
-														<h6>200 ea</h6>
-													</div>
-													<div class="col-md-3 col-sm-3 col-xs-12">
-														<h6>Sale	: ${data[i].productScale}</h6>
-														<h6>Stock	: 600</h6>
-													</div>
-													<div class="product-price">
-														<ins><span>$360.00</span></ins>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
+                  <div class="row">
+                  <div class="col-md-3 col-sm-4 col-xs-12">
+                    <div class="item-pro-color">
+                      <div class="product-thumb">
+                        <a href="http://demo.7uptheme.com/html/kuteshop/detail.html"
+                          class="product-thumb-link">
+                          <img data-color="black" class="active"
+                            src="./image/2(1).jpg"
+                            alt="">
+                          <img data-color="purple"
+                            src="./image/3(1).jpg"
+                            alt="">
+                          <img data-color="blue"
+                            src="./image/4(1).jpg"
+                            alt="">
+                          <img data-color="cyan"
+                            src="./image/5.jpg"
+                            alt="">
+                        </a>
+                        <a href="http://demo.7uptheme.com/html/kuteshop/quick-view.html"
+                          class="quickview-link plus fancybox.iframe"><span>quick
+                            view</span></a>
+                      </div>
+                      <div class="list-color">
+                        <a href="http://demo.7uptheme.com/html/kuteshop/list-boxed-banner.html?fbclid=IwAR3bGgzDp0aoxFFwGK01YrX-6IVDNNt_V0Ion1EgNuFPIHEl1LARLv8wsvI#"
+                          data-color="black" style="background:#404040"></a>
+                        <a href="http://demo.7uptheme.com/html/kuteshop/list-boxed-banner.html?fbclid=IwAR3bGgzDp0aoxFFwGK01YrX-6IVDNNt_V0Ion1EgNuFPIHEl1LARLv8wsvI#"
+                          data-color="purple" style="background:#ff8ff8"></a>
+                        <a href="http://demo.7uptheme.com/html/kuteshop/list-boxed-banner.html?fbclid=IwAR3bGgzDp0aoxFFwGK01YrX-6IVDNNt_V0Ion1EgNuFPIHEl1LARLv8wsvI#"
+                          data-color="blue" style="background:#868fff"></a>
+                        <a href="http://demo.7uptheme.com/html/kuteshop/list-boxed-banner.html?fbclid=IwAR3bGgzDp0aoxFFwGK01YrX-6IVDNNt_V0Ion1EgNuFPIHEl1LARLv8wsvI#"
+                          data-color="cyan" style="background:#80e6ff"></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-9 col-sm-8 col-xs-12">
+                    <div class="product-info">
+                      <h5 class="product-title"><a
+                        href="http://demo.7uptheme.com/html/kuteshop/detail.html"><font size="4"><b>${data[i].productName}</b></font></h5><font size="3.5">Product Code : ${data[i].productCode}</font></a>
+                      <div class="product-price">
+                        <!--<ins><span>$360.00</span></ins>-->
+                      </div>
+                      <div class="col-md-5 col-sm-5 col-xs-12">
+                        <h6>SIZE : ${data[i].productScale}</font>
+                        <h6>VENDER : ${data[i].productVendor}</h6>
+                      </div>
+                      <div class="col-md-5 col-sm-5 col-xs-12">
+                        <h6>Product Line	: ${data[i].productLine}</h6>
+                        <h6>Stock	: ${data[i].quantityInStock}</h6>
+                      </div>
+                      <div class="product-price">
+                        <ins><span>$${data[i].MSRP}</span></ins>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </div>
 									<!-- End Item -->`;
           }
         }
@@ -102,7 +97,6 @@ $(document).ready(function () {
       catch (err) { }
       var bar = document.createElement('div');
       bar.className='pagi-bar';
-      let pageBar = document.querySelector('.pagi-bar');
       console.log('mp ' + maxpage);
       var add = 0;
       if (page < 6 || maxpage < 11) add = 0;
