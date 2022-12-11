@@ -14,7 +14,7 @@
     "nodemon": "^1.19.3"
   },
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "mariadb": "^2.1.1",
     "mysql2": "^1.7.0",
     "mysql3": "^0.3.3",
